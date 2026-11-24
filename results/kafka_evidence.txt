@@ -1,0 +1,17 @@
+$ kafka-topics.sh --describe --topic usgs-earthquakes
+Topic: usgs-earthquakes	TopicId: vAZ3Dfu6TPydiFo30tPXKA	PartitionCount: 3	ReplicationFactor: 1	Configs: min.insync.replicas=1,segment.bytes=1073741824
+	Topic: usgs-earthquakes	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: usgs-earthquakes	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: usgs-earthquakes	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+
+$ kafka-consumer-groups.sh --describe --group earthquake-pipeline-consumer
+
+Consumer group 'earthquake-pipeline-consumer' has no active members.
+
+GROUP                        TOPIC            PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+earthquake-pipeline-consumer usgs-earthquakes 0          3364            3364            0               -               -               -
+earthquake-pipeline-consumer usgs-earthquakes 1          3460            3460            0               -               -               -
+earthquake-pipeline-consumer usgs-earthquakes 2          3603            3603            0               -               -               -
+
+$ kafka-console-consumer.sh --topic usgs-earthquakes --from-beginning --max-messages 1 (key<TAB>value)
+ci41341279	{"run_id": "16a00786", "produced_at": "2026-11-24T10:23:52.335011+00:00", "payload": {"id": "ci41341279", "mag": 3.08, "place": "20 km ESE of Anza, CA", "time": 1790812919630, "updated": 1792544214040, "felt": 8, "cdi": 4.1, "mmi": null, "alert": null, "status": "reviewed", "tsunami": 0, "sig": 149, "net": "ci", "code": "41341279", "nst": 115, "dmin": 0.1163, "rms": 0.17, "gap": 21, "magType": "ml", "type": "earthquake", "title": "M 3.1 - 20 km ESE of Anza, CA", "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci41341279", "longitude": -116.463333333333, "latitude": 33.5023333333333, "depth": 5.13}}
